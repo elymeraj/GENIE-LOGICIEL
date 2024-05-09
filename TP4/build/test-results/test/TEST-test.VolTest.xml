@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.VolTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2024-05-09T15:08:51" hostname="Eldiss-MacBook-Pro.local" time="0.016">
+  <properties/>
+  <testcase name="testAddEscaleInvalidDepartureDate()" classname="test.VolTest" time="0.002"/>
+  <testcase name="testFermerVolNotOpen()" classname="test.VolTest" time="0.002"/>
+  <testcase name="testGetDuree()" classname="test.VolTest" time="0.0"/>
+  <testcase name="testGetDateArrivee()" classname="test.VolTest" time="0.001"/>
+  <testcase name="testToString()" classname="test.VolTest" time="0.001"/>
+  <testcase name="testAddEscale()" classname="test.VolTest" time="0.001"/>
+  <testcase name="testSetCompagnie()" classname="test.VolTest" time="0.0"/>
+  <testcase name="testGetNumVol()" classname="test.VolTest" time="0.0"/>
+  <testcase name="testGetDateDepart()" classname="test.VolTest" time="0.0"/>
+  <testcase name="testOuvrirEtFermerVol()" classname="test.VolTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
