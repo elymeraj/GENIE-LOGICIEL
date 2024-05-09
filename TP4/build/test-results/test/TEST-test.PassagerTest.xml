@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.PassagerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-05-09T15:08:51" hostname="Eldiss-MacBook-Pro.local" time="0.008">
+  <properties/>
+  <testcase name="testRemoveReservation()" classname="test.PassagerTest" time="0.001"/>
+  <testcase name="testToString()" classname="test.PassagerTest" time="0.001"/>
+  <testcase name="testReservationDateAfterFlightDeparture()" classname="test.PassagerTest" time="0.001"/>
+  <testcase name="testPassagerReservation()" classname="test.PassagerTest" time="0.001"/>
+  <testcase name="testInvalidReservationNumber()" classname="test.PassagerTest" time="0.001"/>
+  <testcase name="testGetNom()" classname="test.PassagerTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

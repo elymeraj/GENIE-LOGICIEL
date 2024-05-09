@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.CompagnieTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-05-09T15:08:51" hostname="Eldiss-MacBook-Pro.local" time="0.015">
+  <properties/>
+  <testcase name="testProposeVolMauvaiseDate()" classname="test.CompagnieTest" time="0.007"/>
+  <testcase name="testProposeVolMemeAeroport()" classname="test.CompagnieTest" time="0.002"/>
+  <testcase name="testAjouterVol()" classname="test.CompagnieTest" time="0.001"/>
+  <testcase name="testProposeVolValide()" classname="test.CompagnieTest" time="0.001"/>
+  <testcase name="testGetNomCompagnie()" classname="test.CompagnieTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
