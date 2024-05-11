@@ -71,5 +71,13 @@ Des tests unitaires complets ont été écrits pour chaque composante du systèm
 
 ## Commandes pour l'Exécution
 Pour compiler et exécuter les tests, utilisez la commande suivante dans le terminal :
+***Exécuter:
 ```bash
-./gradlew test
+1. gradle wrapper
+2. chmod +x ./gradlew
+3. ./gradlew tasks
+4. ./gradlew run
+```
+***Tester le programme:
+```bash
+./gradlew test et puie aller dans le fichier index.html: ./build/reports/tests/test/index.html
