@@ -71,6 +71,7 @@ Des tests unitaires complets ont été écrits pour chaque composante du systèm
 
 ## Commandes pour l'Exécution
 Pour compiler et exécuter les tests, utilisez la commande suivante dans le terminal :
+
 ***Exécuter:***
 ```bash
 1. gradle wrapper
