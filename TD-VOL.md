@@ -49,6 +49,6 @@ Question 7 (Découpage en paquets) : Sur un nouveau diagramme complet de votre a
 découpage de votre modèle conceptuel en deux paquets. Si plusieurs solutions sont possibles, décrivez les à l’aide des
 diagrammes de paquets et choisissez celle qui minimisera le couplage entre les deux paquets.
 
-<img src="uml.png" alt="Description de l'image">
+<img src="reservation_des_vols.png" alt="Description de l'image">
 
 Pour compiler : ./gradlew run
