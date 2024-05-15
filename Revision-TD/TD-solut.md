@@ -146,7 +146,7 @@ En utilisant un constructeur package-private pour `Forme` et des classes interne
 
 ## Exercice (Patrons fonctionnels)
 
-**map, filter et fold (ou reduce) sont des patrons classiques des langages fonctionnels.**
+**Les fonctions d’ordre suppérieur map, filter et fold (ou reduce) sont des patrons classiques des langages fonctionnels.**
 
 Le **map** s'applique sur une liste (ou similaire) et la transforme par application d'une fonction. Par exemple, **map(f, [v1, v2, v3])** renvoie **[f(v1), f(v2), f(v3)]**. **filter** renvoie une nouvelle liste ne contenant que les éléments validant un prédicat. Ainsi, par exemple, **filter(isEven, [1, 2, 3, 4, 5])** renvoie **[2, 4]**. Enfin, le **fold** agrège les éléments d'une liste. Par exemple, **fold(add, 0, [1, 2, 3, 4, 5])** renvoie 15 et **fold(concat, "", ["a", "b", "c"])** renvoie "abc".
 
