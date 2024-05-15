@@ -3,6 +3,96 @@
 ## Exercice (4 pt)
 
 On veut créer trois types **Triangle**, **Rectangle** et **Cercle**. Ces trois types doivent être des sous-types d'un type abstrait **Forme**. Cependant, on veut garantir que les seuls sous-types possibles de **Forme** sont ces trois là. Comment faire en **JAVA**?
+### Définition de la classe `Forme` et de ses sous-classes
+
+```java
+// Définition du package
+package formes;
+
+public abstract class Forme {
+    // Constructeur package-private
+    Forme() {}
+
+    // Méthodes abstraites communes
+    public abstract double aire();
+    public abstract double perimetre();
+
+    // Méthodes de fabrique statiques pour créer des instances
+    public static Forme createTriangle(double base, double hauteur) {
+        return new Triangle(base, hauteur);
+    }
+
+    public static Forme createRectangle(double longueur, double largeur) {
+        return new Rectangle(longueur, largeur);
+    }
+
+    public static Forme createCercle(double rayon) {
+        return new Cercle(rayon);
+    }
+
+    // Sous-classe Triangle
+    private static class Triangle extends Forme {
+        private final double base;
+        private final double hauteur;
+
+        Triangle(double base, double hauteur) {
+            this.base = base;
+            this.hauteur = hauteur;
+        }
+
+        @Override
+        public double aire() {
+            return (base * hauteur) / 2;
+        }
+
+        @Override
+        public double perimetre() {
+            // Exemple simplifié
+            return 0;
+        }
+    }
+
+    // Sous-classe Rectangle
+    private static class Rectangle extends Forme {
+        private final double longueur;
+        private final double largeur;
+
+        Rectangle(double longueur, double largeur) {
+            this.longueur = longueur;
+            this.largeur = largeur;
+        }
+
+        @Override
+        public double aire() {
+            return longueur * largeur;
+        }
+
+        @Override
+        public double perimetre() {
+            return 2 * (longueur + largeur);
+        }
+    }
+
+    // Sous-classe Cercle
+    private static class Cercle extends Forme {
+        private final double rayon;
+
+        Cercle(double rayon) {
+            this.rayon = rayon;
+        }
+
+        @Override
+        public double aire() {
+            return Math.PI * rayon * rayon;
+        }
+
+        @Override
+        public double perimetre() {
+            return 2 * Math.PI * rayon;
+        }
+    }
+}
+```
 
 ## Exercice (Réveil)
 
