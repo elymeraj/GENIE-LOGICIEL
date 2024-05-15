@@ -228,3 +228,22 @@ Par ailleurs, différentes opérations devront être effectuées sur cette struc
 
 1. **(3 pt)** Quels patrons de conceptions seront nécessaires à cette mise en œuvre ? Pourquoi ? Qu'apportent-ils ?
 2. **(3 pt)** Donnez une ébauche de représentation UML statique et dynamique de ce système.
+
+### Patrons de conception nécessaires
+
+#### Composite
+
+- **Pourquoi** : Le patron Composite permet de représenter des structures hiérarchiques d'objets de manière à traiter de manière uniforme les objets simples (feuilles) et les compositions d'objets (nœuds). Cela est particulièrement utile pour représenter des arbres syntaxiques, où chaque nœud peut être une feuille ou un autre nœud contenant d'autres nœuds.
+- **Ce qu'il apporte** : Il permet de construire une structure arborescente flexible et de traiter les nœuds et les feuilles de manière uniforme, facilitant ainsi les opérations telles que la traversée de l'arbre.
+
+#### Visitor
+
+- **Pourquoi** : Le patron Visitor permet de séparer l'algorithme de la structure de l'objet sur lequel il opère. Cela est utile pour effectuer différentes opérations (validation, compilation, pretty print) sur les éléments de l'arbre sans modifier les classes des éléments eux-mêmes.
+- **Ce qu'il apporte** : Il permet d'ajouter de nouvelles opérations sur les éléments de l'arbre sans modifier les classes des éléments, rendant le système plus extensible et maintenable.
+
+#### Factory Method
+
+- **Pourquoi** : Le patron Factory Method permet de créer des objets sans spécifier la classe exacte de l'objet qui sera créé. Cela est utile pour la création des différents types d'éléments du langage (variables, opérateurs, boucles, etc.) de manière flexible.
+- **Ce qu'il apporte** : Il permet d'instancier les objets de manière flexible et centralisée, facilitant ainsi l'ajout de nouveaux types d'éléments au langage.
+
+
