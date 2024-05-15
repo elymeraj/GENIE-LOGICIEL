@@ -117,6 +117,21 @@ public abstract class Forme {
 
 ### Utilisation
 - La classe `Main` montre comment utiliser les méthodes de fabrique statiques de la classe `Forme` pour créer des instances de `Triangle`, `Rectangle` et `Cercle` et calculer leurs aires.
+```java
+package formes;
+
+public class Main {
+    public static void main(String[] args) {
+        Forme triangle = Forme.createTriangle(3, 4);
+        Forme rectangle = Forme.createRectangle(5, 6);
+        Forme cercle = Forme.createCercle(7);
+
+        System.out.println("Aire du triangle: " + triangle.aire());
+        System.out.println("Aire du rectangle: " + rectangle.aire());
+        System.out.println("Aire du cercle: " + cercle.aire());
+    }
+}
+```
 
 En utilisant un constructeur package-private pour `Forme` et des classes internes privées pour `Triangle`, `Rectangle` et `Cercle`, nous pouvons garantir que les seuls sous-types de `Forme` sont ceux définis à l'intérieur de `Forme`. Cette solution assure que les sous-classes ne peuvent pas être étendues ou instanciées en dehors du contrôle de la classe `Forme`, répondant ainsi aux exigences de l'exercice.
 
