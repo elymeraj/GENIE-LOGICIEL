@@ -93,6 +93,33 @@ public abstract class Forme {
     }
 }
 ```
+## Explications
+
+### Classe `Forme`
+- **Constructeur package-private**: Le constructeur de `Forme` est défini sans modificateur d'accès, ce qui le rend package-private. Cela empêche toute classe en dehors du package `formes` de directement instancier `Forme`.
+
+- **Méthodes abstraites**: Les méthodes `aire` et `perimetre` sont abstraites, ce qui oblige les sous-classes à les implémenter.
+
+- **Méthodes de fabrique statiques**: Les méthodes statiques `createTriangle`, `createRectangle` et `createCercle` permettent de créer des instances des sous-classes. Cela garantit que les instances des sous-classes sont créées de manière contrôlée.
+
+### Sous-classes
+
+- **Sous-classes privées**: Les classes `Triangle`, `Rectangle` et `Cercle` sont définies comme des classes internes privées de `Forme`. Cela signifie qu'elles ne peuvent pas être étendues ou instanciées directement en dehors de `Forme`.
+
+#### `Triangle`
+- La classe `Triangle` est définie avec des propriétés `base` et `hauteur` et implémente les méthodes `aire` et `perimetre`.
+
+#### `Rectangle`
+- La classe `Rectangle` est définie avec des propriétés `longueur` et `largeur` et implémente les méthodes `aire` et `perimetre`.
+
+#### `Cercle`
+- La classe `Cercle` est définie avec une propriété `rayon` et implémente les méthodes `aire` et `perimetre`.
+
+### Utilisation
+- La classe `Main` montre comment utiliser les méthodes de fabrique statiques de la classe `Forme` pour créer des instances de `Triangle`, `Rectangle` et `Cercle` et calculer leurs aires.
+
+En utilisant un constructeur package-private pour `Forme` et des classes internes privées pour `Triangle`, `Rectangle` et `Cercle`, nous pouvons garantir que les seuls sous-types de `Forme` sont ceux définis à l'intérieur de `Forme`. Cette solution assure que les sous-classes ne peuvent pas être étendues ou instanciées en dehors du contrôle de la classe `Forme`, répondant ainsi aux exigences de l'exercice.
+
 
 ## Exercice (Réveil)
 
