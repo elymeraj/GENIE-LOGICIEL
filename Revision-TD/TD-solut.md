@@ -135,46 +135,6 @@ public class Main {
 
 En utilisant un constructeur package-private pour `Forme` et des classes internes privées pour `Triangle`, `Rectangle` et `Cercle`, nous pouvons garantir que les seuls sous-types de `Forme` sont ceux définis à l'intérieur de `Forme`. Cette solution assure que les sous-classes ne peuvent pas être étendues ou instanciées en dehors du contrôle de la classe `Forme`, répondant ainsi aux exigences de l'exercice.
 
-```plaintext
-+------------------------------------+
-|               Forme                |
-|------------------------------------|
-| - Forme()                          |
-| + aire(): double                   |
-| + perimetre(): double              |
-|------------------------------------|
-| + createTriangle(base: double,     |
-|   hauteur: double): Forme          |
-| + createRectangle(longueur: double,|
-|   largeur: double): Forme          |
-| + createCercle(rayon: double):     |
-|   Forme                            |
-+------------------------------------+
-                 ^
-                 |
-                 |
-+----------------+-------------------+
-|                                    |
-|                                    |
-+-------------------+----------------+
-|                   |                |
-|                   |                |
-|                   |                |
-|   +---------------+--------------+ |
-|   |               |              | |
-|   |               |              | |
-|   V               V              V |
-| +-----------+ +-----------+ +-----------+
-| | Triangle  | | Rectangle | |  Cercle   |
-| |-----------| |-----------| |-----------|
-| | - base    | | - longueur | | - rayon  |
-| | - hauteur | | - largeur  | |           |
-| |-----------| |-----------| |-----------|
-| | + aire()  | | + aire()  | | + aire()  |
-| | + perimetre()| + perimetre()| + perimetre()|
-+-----------+ +-----------+ +-----------+
-```
-
 
 ## Exercice (Réveil)
 
