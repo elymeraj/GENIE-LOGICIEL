@@ -93,7 +93,7 @@ public abstract class Forme {
     }
 }
 ```
-## Explications
+### Explications
 
 ### Classe `Forme`
 - **Constructeur package-private**: Le constructeur de `Forme` est défini sans modificateur d'accès, ce qui le rend package-private. Cela empêche toute classe en dehors du package `formes` de directement instancier `Forme`.
