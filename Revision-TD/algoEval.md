@@ -2,7 +2,7 @@
 
 On souhaite évaluer différents algorithmes pour une tâche donnée. On veut donc exécuter une série de traitement identique en mesurant les performances et les résultats, pour chacune de ces méthodes. Les paramètres d'exécution peuvent changer. Quels patrons sont utiles pour réaliser ce système ? Expliquer le fonctionnement de ces patrons et leur intérêt dans ce cas précis.
 
-###Solution:
+### Solution:
 #### 1. Strategy Pattern (Patron de Stratégie)
 
 **Fonctionnement :**
