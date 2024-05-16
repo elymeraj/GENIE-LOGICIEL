@@ -6,7 +6,7 @@ Le **map** s'applique sur une liste (ou similaire) et la transforme par applicat
 
 On souhaite implémenter une approche similaire en objet pur, par exemple en Java. Il faut de plus que la mise en œuvre proposée soit paresseuse (c'est-à-dire que les traitements ne soient appliqués que si nécessaire) et composable (on peut chainer plusieurs de ces opérations), comme c'est le cas en fonctionnel (par exemple **reduce(add, 0, map(double, filter(isEven, [1, 2, 3, 4, 5]))** donne 12).
 
-1. **(2 pt)** Quels patrons de conception orientée objets classiques sont utiles pour modéliser ce système ?
+Question 1. **(2 pt)** Quels patrons de conception orientée objets classiques sont utiles pour modéliser ce système ?
 1. **Patron Template Method ou Stratégie :**
    - **Template Method** : Ce patron permet de définir le squelette d'un algorithme dans une méthode, en laissant la définition de certaines étapes aux sous-classes. Ici, il pourrait être utilisé pour définir la structure des opérations `map`, `filter` et `fold`, laissant les sous-classes spécifier les détails de chaque opération.
    - **Stratégie** : Ce patron permet d'encapsuler des algorithmes interchangeables dans des classes distinctes. Il peut être utilisé pour définir des stratégies différentes pour les opérations `map`, `filter` et `fold`, et pour permettre de les appliquer de manière interchangeable sur les éléments de la collection.
@@ -23,5 +23,5 @@ On souhaite implémenter une approche similaire en objet pur, par exemple en Jav
 5. **Patron Adaptateur :**
    - L'adaptateur permet de convertir une interface en une autre interface attendue par un client. Dans ce cas, un adaptateur peut être utilisé pour ajouter des méthodes `map`, `filter`, `reduce` à une collection existante, telle qu'une `List`, sans modifier sa structure initiale.
 
-3. **(3 pt)** Faire la représentation UML du diagramme de classe.
-4. **(2 pt)** Donner le code Java correspondant.
+Question 2. **(3 pt)** Faire la représentation UML du diagramme de classe.
+Question 3. **(2 pt)** Donner le code Java correspondant.
