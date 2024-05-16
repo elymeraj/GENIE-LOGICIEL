@@ -3,138 +3,75 @@
 ## Exercice (4 pt)
 
 On veut créer trois types **Triangle**, **Rectangle** et **Cercle**. Ces trois types doivent être des sous-types d'un type abstrait **Forme**. Cependant, on veut garantir que les seuls sous-types possibles de **Forme** sont ces trois là. Comment faire en **JAVA**?
-### Définition de la classe `Forme` et de ses sous-classes
+
+Les classes scellées en Java permettent de contrôler les hiérarchies de classes en spécifiant explicitement quels types peuvent étendre ou implémenter une classe ou une interface donnée. Cela est particulièrement utile pour créer des modèles de domaines où la sécurité du type et la prévisibilité sont cruciales.
+
+### Définition de la Classe Abstraite `Forme`
+
+La classe `Forme` est définie comme une classe abstraite scellée. Elle spécifie ses sous-types autorisés avec le mot-clé `permits`. Cela garantit que seuls les types listés (`Triangle`, `Rectangle`, `Cercle`) peuvent hériter de `Forme`.
 
 ```java
-// Définition du package
-package formes;
+public abstract sealed class Forme permits Triangle, Rectangle, Cercle {
+    public abstract double calculerAire();
+```
+### Définition des Sous-Classes
+Chaque sous-classe de Forme doit être déclarée soit comme `final` , soit comme `sealed`, soit comme `non-sealed`. Ici, chaque sous-classe est définie comme `final`, ce qui signifie qu'aucune autre classe ne peut hériter de ces sous-classes.
+**Classe Triangle**
+La classe Triangle est une `sous-classe` de Forme qui calcule l'aire d'un triangle.
+```java
+public final class Triangle extends Forme {
+    private double base;
+    private double hauteur;
 
-public abstract class Forme {
-    // Constructeur package-private
-    Forme() {}
-
-    // Méthodes abstraites communes
-    public abstract double aire();
-    public abstract double perimetre();
-
-    // Méthodes de fabrique statiques pour créer des instances
-    public static Forme createTriangle(double base, double hauteur) {
-        return new Triangle(base, hauteur);
+    public Triangle(double base, double hauteur) {
+        this.base = base;
+        this.hauteur = hauteur;
     }
 
-    public static Forme createRectangle(double longueur, double largeur) {
-        return new Rectangle(longueur, largeur);
-    }
-
-    public static Forme createCercle(double rayon) {
-        return new Cercle(rayon);
-    }
-
-    // Sous-classe Triangle
-    private static class Triangle extends Forme {
-        private final double base;
-        private final double hauteur;
-
-        Triangle(double base, double hauteur) {
-            this.base = base;
-            this.hauteur = hauteur;
-        }
-
-        @Override
-        public double aire() {
-            return (base * hauteur) / 2;
-        }
-
-        @Override
-        public double perimetre() {
-            // Exemple simplifié
-            return 0;
-        }
-    }
-
-    // Sous-classe Rectangle
-    private static class Rectangle extends Forme {
-        private final double longueur;
-        private final double largeur;
-
-        Rectangle(double longueur, double largeur) {
-            this.longueur = longueur;
-            this.largeur = largeur;
-        }
-
-        @Override
-        public double aire() {
-            return longueur * largeur;
-        }
-
-        @Override
-        public double perimetre() {
-            return 2 * (longueur + largeur);
-        }
-    }
-
-    // Sous-classe Cercle
-    private static class Cercle extends Forme {
-        private final double rayon;
-
-        Cercle(double rayon) {
-            this.rayon = rayon;
-        }
-
-        @Override
-        public double aire() {
-            return Math.PI * rayon * rayon;
-        }
-
-        @Override
-        public double perimetre() {
-            return 2 * Math.PI * rayon;
-        }
+    @Override
+    public double calculerAire() {
+        return 0.5 * base * hauteur;
     }
 }
 ```
-### Explications
-
-### Classe `Forme`
-- **Constructeur package-private**: Le constructeur de `Forme` est défini sans modificateur d'accès, ce qui le rend package-private. Cela empêche toute classe en dehors du package `formes` de directement instancier `Forme`.
-
-- **Méthodes abstraites**: Les méthodes `aire` et `perimetre` sont abstraites, ce qui oblige les sous-classes à les implémenter.
-
-- **Méthodes de fabrique statiques**: Les méthodes statiques `createTriangle`, `createRectangle` et `createCercle` permettent de créer des instances des sous-classes. Cela garantit que les instances des sous-classes sont créées de manière contrôlée.
-
-### Sous-classes
-
-- **Sous-classes privées**: Les classes `Triangle`, `Rectangle` et `Cercle` sont définies comme des classes internes privées de `Forme`. Cela signifie qu'elles ne peuvent pas être étendues ou instanciées directement en dehors de `Forme`.
-
-#### `Triangle`
-- La classe `Triangle` est définie avec des propriétés `base` et `hauteur` et implémente les méthodes `aire` et `perimetre`.
-
-#### `Rectangle`
-- La classe `Rectangle` est définie avec des propriétés `longueur` et `largeur` et implémente les méthodes `aire` et `perimetre`.
-
-#### `Cercle`
-- La classe `Cercle` est définie avec une propriété `rayon` et implémente les méthodes `aire` et `perimetre`.
-
-### Utilisation
-- La classe `Main` montre comment utiliser les méthodes de fabrique statiques de la classe `Forme` pour créer des instances de `Triangle`, `Rectangle` et `Cercle` et calculer leurs aires.
+**Classe Rectangle**
+La classe Rectangle calcule l'aire d'un rectangle:
 ```java
-package formes;
+public final class Rectangle extends Forme {
+    private double largeur;
+    private double longueur;
 
-public class Main {
-    public static void main(String[] args) {
-        Forme triangle = Forme.createTriangle(3, 4);
-        Forme rectangle = Forme.createRectangle(5, 6);
-        Forme cercle = Forme.createCercle(7);
+    public Rectangle(double largeur, double longueur) {
+        this.largeur = largeur;
+        this.longueur = longueur;
+    }
 
-        System.out.println("Aire du triangle: " + triangle.aire());
-        System.out.println("Aire du rectangle: " + rectangle.aire());
-        System.out.println("Aire du cercle: " + cercle.aire());
+    @Override
+    public double calculerAire() {
+        return largeur * longueur;
     }
 }
 ```
+**Classe Cercle**
+La classe Cercle calcule l'aire d'un cercle à partir de son rayon:
+```java
+public final class Cercle extends Forme {
+    private double rayon;
 
-En utilisant un constructeur package-private pour `Forme` et des classes internes privées pour `Triangle`, `Rectangle` et `Cercle`, nous pouvons garantir que les seuls sous-types de `Forme` sont ceux définis à l'intérieur de `Forme`. Cette solution assure que les sous-classes ne peuvent pas être étendues ou instanciées en dehors du contrôle de la classe `Forme`, répondant ainsi aux exigences de l'exercice.
+    public Cercle(double rayon) {
+        this.rayon = rayon;
+    }
 
+    @Override
+    public double calculerAire() {
+        return Math.PI * rayon * rayon;
+    }
+}
+```
+**Avantages des Classes Scellées:**
+- ***Contrôle Strict de l'Héritage:*** Seuls les sous-types explicitement permis peuvent étendre la classe Forme.
+- ***Sécurité de Type Améliorée:*** Cela aide à garantir que les instances sont de types connus et contrôlés, ce qui est essentiel pour la robustesse des applications.
+- ***Facilitation du Refactoring:*** Le compilateur peut signaler des erreurs si le code existant n'est pas adapté aux sous-classes prévues.
 
 ## Exercice (Réveil)
 
