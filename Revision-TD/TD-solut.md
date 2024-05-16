@@ -72,6 +72,21 @@ public final class Cercle extends Forme {
 - ***Contrôle Strict de l'Héritage:*** Seuls les sous-types explicitement permis peuvent étendre la classe Forme.
 - ***Sécurité de Type Améliorée:*** Cela aide à garantir que les instances sont de types connus et contrôlés, ce qui est essentiel pour la robustesse des applications.
 - ***Facilitation du Refactoring:*** Le compilateur peut signaler des erreurs si le code existant n'est pas adapté aux sous-classes prévues.
+**Exemple de la classe main:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        Forme triangle = new Triangle(3.0, 4.0);
+        Forme rectangle = new Rectangle(4.0, 5.0);
+        Forme cercle = new Cercle(3.0);
+
+        System.out.println("Aire du triangle : " + triangle.calculerAire());
+        System.out.println("Aire du rectangle : " + rectangle.calculerAire());
+        System.out.println("Aire du cercle : " + cercle.calculerAire());
+    }
+}
+```
+La classe `Main` est utilisée pour créer des instances de `Triangle`, `Rectangle`, et `Cercle`, et pour calculer et afficher leur aire respective. Ceci démontre l'utilisation pratique des classes scellées avec des méthodes concrètes.
 
 ## Exercice (Réveil)
 
