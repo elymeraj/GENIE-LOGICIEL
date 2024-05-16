@@ -22,6 +22,129 @@ Question 1. **(2 pt)** Quels patrons de conception orientée objets classiques s
 
 5. **Patron Adaptateur :**
    - L'adaptateur permet de convertir une interface en une autre interface attendue par un client. Dans ce cas, un adaptateur peut être utilisé pour ajouter des méthodes `map`, `filter`, `reduce` à une collection existante, telle qu'une `List`, sans modifier sa structure initiale.
-
 Question 2. **(3 pt)** Faire la représentation UML du diagramme de classe.
 Question 3. **(2 pt)** Donner le code Java correspondant.
+
+```java
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+interface Iterable<T> {
+    Iterator<T> iterator();
+}
+
+interface Iterator<T> {
+    boolean hasNext();
+    T next();
+}
+
+abstract class Composant<T> implements Iterable<T> {
+    protected Iterable<T> iterable;
+
+    public Composant(Iterable<T> iterable) {
+        this.iterable = iterable;
+    }
+}
+
+class Map<T, R> extends Composant<R> {
+    private final Function<? super T, ? extends R> mapper;
+
+    public Map(Iterable<T> iterable, Function<? super T, ? extends R> mapper) {
+        super(() -> (Iterator<R>) iterable.iterator());
+        this.mapper = mapper;
+    }
+
+    @Override
+    public Iterator<R> iterator() {
+        return new Iterator<R>() {
+            private final Iterator<T> iterator = (Iterator<T>) iterable.iterator();
+
+            @Override
+            public boolean hasNext() {
+                return iterator.hasNext();
+            }
+
+            @Override
+            public R next() {
+                return mapper.apply(iterator.next());
+            }
+        };
+    }
+}
+
+class Filter<T> extends Composant<T> {
+    private final Predicate<? super T> predicate;
+
+    public Filter(Iterable<T> iterable, Predicate<? super T> predicate) {
+        super(() -> (Iterator<T>) iterable.iterator());
+        this.predicate = predicate;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private final Iterator<T> iterator = (Iterator<T>) iterable.iterator();
+            private T nextElement;
+            private boolean nextElementReady = false;
+
+            @Override
+            public boolean hasNext() {
+                while (iterator.hasNext()) {
+                    nextElement = iterator.next();
+                    if (predicate.test(nextElement)) {
+                        nextElementReady = true;
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            @Override
+            public T next() {
+                if (!nextElementReady && !hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                nextElementReady = false;
+                return nextElement;
+            }
+        };
+    }
+}
+
+class Fold<T, R> {
+    private final Iterable<T> iterable;
+    private final Function<? super T, ? extends R> accumulator;
+    private final R identity;
+
+    public Fold(Iterable<T> iterable, Function<? super T, ? extends R> accumulator, R identity) {
+        this.iterable = iterable;
+        this.accumulator = accumulator;
+        this.identity = identity;
+    }
+
+    public R reduce() {
+        R result = identity;
+        for (T element : iterable) {
+            result = accumulator.apply(element);
+        }
+        return result;
+    }
+}
+
+// Exemple d'utilisation
+public class Main {
+    public static void main(String[] args) {
+        Iterable<Integer> numbers = List.of(1, 2, 3, 4, 5);
+
+        Iterable<Integer> doubled = new Map<>(numbers, x -> x * 2);
+        Iterable<Integer> even = new Filter<>(doubled, x -> x % 2 == 0);
+
+        Fold<Integer, Integer> sum = new Fold<>(even, Integer::sum, 0);
+
+        System.out.println(sum.reduce()); // Sortie : 12
+    }
+}
+```
+
