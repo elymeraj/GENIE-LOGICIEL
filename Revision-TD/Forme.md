@@ -1,6 +1,4 @@
-# Exercices
-
-## Exercice (4 pt)
+## Exercice (Forme)
 
 On veut créer trois types **Triangle**, **Rectangle** et **Cercle**. Ces trois types doivent être des sous-types d'un type abstrait **Forme**. Cependant, on veut garantir que les seuls sous-types possibles de **Forme** sont ces trois là. Comment faire en **JAVA**?
 
