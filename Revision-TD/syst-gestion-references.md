@@ -25,25 +25,94 @@ Analyser les différents états d'une référence, et les représenter sous form
 Détaillez au niveau implémentation :
 - La gestion des statuts et de la visibilité des références
 - Les fonctionnalités d'import-export de différents formats
-***Solution qustion 3:***
-`classe Reference: `
+  
+***Gestion des Statuts et de la Visibilité des Références:***
+
+Nous allons utiliser le State Pattern pour gérer les statuts des références. Chaque référence peut être dans un état spécifique: Ouvert, Limité, Publique, ou Privé. Voici comment on peut implémenter cela:
 ```java
-public abstract class Reference {
-    private final String identifiant;
+// Etat.java (interface)
+public interface Etat {
+    void ouvrir(Reference ref);
+    void limiter(Reference ref);
+    void rendrePublique(Reference ref);
+    void rendrePrive(Reference ref);
+}
+
+// Ouvert.java (Concrete State)
+public class Ouvert implements Etat {
+    public void ouvrir(Reference ref) {
+        // Already opened
+    }
+    public void limiter(Reference ref) {
+        ref.setEtat(new Limite());
+    }
+    public void rendrePublique(Reference ref) {
+        ref.setEtat(new Publique());
+    }
+    public void rendrePrive(Reference ref) {
+        ref.setEtat(new Prive());
+    }
+}
+
+// Limite.java (Concrete State)
+public class Limite implements Etat {
+    public void ouvrir(Reference ref) {
+        ref.setEtat(new Ouvert());
+    }
+    public void limiter(Reference ref) {
+        // Already limited
+    }
+    public void rendrePublique(Reference ref) {
+        ref.setEtat(new Publique());
+    }
+    public void rendrePrive(Reference ref) {
+        ref.setEtat(new Prive());
+    }
+}
+
+// Publique.java (Concrete State)
+public class Publique implements Etat {
+    public void ouvrir(Reference ref) {
+        ref.setEtat(new Ouvert());
+    }
+    public void limiter(Reference ref) {
+        ref.setEtat(new Limite());
+    }
+    public void rendrePublique(Reference ref) {
+        // Already public
+    }
+    public void rendrePrive(Reference ref) {
+        ref.setEtat(new Prive());
+    }
+}
+
+// Prive.java (Concrete State)
+public class Prive implements Etat {
+    public void ouvrir(Reference ref) {
+        ref.setEtat(new Ouvert());
+    }
+    public void limiter(Reference ref) {
+        ref.setEtat(new Limite());
+    }
+    public void rendrePublique(Reference ref) {
+        ref.setEtat(new Publique());
+    }
+    public void rendrePrive(Reference ref) {
+        // Already private
+    }
+}
+
+// Reference.java (Context)
+public class Reference {
+    private String identifiant;
     private String auteur;
     private String titre;
     private ZonedDateTime date;
     private String description;
     private Etat etat;
-    private ImportExportStrategy strategy;
 
-    public Reference(String identifiant, String auteur, String titre, ZonedDateTime date, String description) {
-        this.identifiant = identifiant;
-        this.auteur = auteur;
-        this.titre = titre;
-        this.date = date;
-        this.description = description;
-        this.etat = new Ouvert(this); // Etat initial par défaut
+    public Reference() {
+        this.etat = new Prive(); // Default state
     }
 
     public void setEtat(Etat etat) {
@@ -51,105 +120,111 @@ public abstract class Reference {
     }
 
     public void ouvrir() {
-        etat.ouvrir();
+        etat.ouvrir(this);
     }
 
     public void limiter() {
-        etat.limiter();
+        etat.limiter(this);
     }
 
     public void rendrePublique() {
-        etat.publique();
+        etat.rendrePublique(this);
     }
 
     public void rendrePrive() {
-        etat.prive();
+        etat.rendrePrive(this);
     }
 
-    public void setStrategy(ImportExportStrategy strategy) {
-        this.strategy = strategy;
+    // Other attributes and methods...
+}
+```
+***Fonctionnalités d'Import-Export de Différents Formats:***
+
+Nous allons utiliser le Strategy Pattern pour permettre l'import-export de différents formats de données. Voici une implémentation en Java pour les stratégies CSV et XML:
+```java
+// ImportExportStrategy.java (interface)
+public interface ImportExportStrategy {
+    void importData(String data);
+    String exportData();
+}
+
+// CSVStrat.java (Concrete Strategy)
+public class CSVStrat implements ImportExportStrategy {
+    public void importData(String data) {
+        // Implement CSV import logic
     }
 
-    public void importer(String data) {
-        if (strategy != null) {
-            strategy.importer(data);
+    public String exportData() {
+        // Implement CSV export logic
+        return "CSV data";
+    }
+}
+
+// XMLStrat.java (Concrete Strategy)
+public class XMLStrat implements ImportExportStrategy {
+    public void importData(String data) {
+        // Implement XML import logic
+    }
+
+    public String exportData() {
+        // Implement XML export logic
+        return "XML data";
+    }
+}
+
+// Reference.java (Context updated with strategy)
+public class Reference {
+    private String identifiant;
+    private String auteur;
+    private String titre;
+    private ZonedDateTime date;
+    private String description;
+    private Etat etat;
+    private ImportExportStrategy importExportStrategy;
+
+    public Reference() {
+        this.etat = new Prive(); // Default state
+    }
+
+    public void setEtat(Etat etat) {
+        this.etat = etat;
+    }
+
+    public void setImportExportStrategy(ImportExportStrategy strategy) {
+        this.importExportStrategy = strategy;
+    }
+
+    public void ouvrir() {
+        etat.ouvrir(this);
+    }
+
+    public void limiter() {
+        etat.limiter(this);
+    }
+
+    public void rendrePublique() {
+        etat.rendrePublique(this);
+    }
+
+    public void rendrePrive() {
+        etat.rendrePrive(this);
+    }
+
+    public void importData(String data) {
+        if (importExportStrategy != null) {
+            importExportStrategy.importData(data);
         }
     }
 
-    public String exporter() {
-        if (strategy != null) {
-            return strategy.exporter();
+    public String exportData() {
+        if (importExportStrategy != null) {
+            return importExportStrategy.exportData();
         }
         return null;
     }
 
-    // Getters and Setters pour les attributs privés
+    // Other attributes and methods...
 }
 ```
-Classe `Etat`:
-```java
-public abstract class Etat {
-    protected Reference reference;
-
-    public Etat(Reference reference) {
-        this.reference = reference;
-    }
-
-    public abstract void afficher();
-
-    public abstract void ouvrir();
-
-    public abstract void limiter();
-
-    public abstract void publique();
-
-    public abstract void prive();
-}
-```
-Etats `concrets`:
-```java
-public class Ouvert extends Etat {
-    public Ouvert(Reference reference) {
-        super(reference);
-    }
-
-    @Override
-    public void afficher() {
-        System.out.println("Référence ouverte et visible par tout le monde.");
-    }
-
-    @Override
-    public void ouvrir() {
-        System.out.println("Déjà en état ouvert.");
-    }
-
-    @Override
-    public void limiter() {
-        reference.setEtat(new Limite(reference));
-    }
-
-    @Override
-    public void publique() {
-        reference.setEtat(new Publique(reference));
-    }
-
-    @Override
-    public void prive() {
-        reference.setEtat(new Prive(reference));
-    }
-}
-
-// Implémentation des autres états (Limite, Publique, Prive) similaires à la classe Ouvert
-```
-Gestion des Fonctionnalités `d'Import-Export`
-Nous allons utiliser le motif de conception Strategy pour permettre d'importer et d'exporter des références dans différents formats (CSV, XML).
-```java
-public interface ImportExportStrategy {
-    void importer(String data);
-    String exporter();
-}
-```
-Stratégie `CSV`
-```java
 
 
